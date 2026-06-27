@@ -43,7 +43,7 @@ export async function fetchPinnedRepos(
     const allRepos = await fetchWithCache<GitHubRepo[]>(
       `${GITHUB_API}/users/${USERNAME}/repos?sort=updated&per_page=30`,
     )
-    return allRepos
+    return allRepos.filter((r) => r.name !== 'myportfolio')
   }
   const repos = await Promise.all(
     pinnedNames.map((name) =>
