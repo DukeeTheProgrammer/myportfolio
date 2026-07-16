@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
 import ProjectsSection from './components/ProjectsSection'
@@ -62,12 +62,25 @@ function Typewriter() {
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onClick)
+    return () => document.removeEventListener('mousedown', onClick)
+  }, [menuOpen])
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-gray-100">
@@ -79,14 +92,17 @@ export default function App() {
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-12 flex items-center justify-between">
           <a
             href="#"
             className="font-mono text-sm text-[#00ff41] font-bold"
+            onClick={() => setMenuOpen(false)}
           >
             <Typewriter />
           </a>
-          <div className="flex items-center gap-6">
+
+          {/* Desktop nav */}
+          <div className="hidden sm:flex items-center gap-6">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.href}
@@ -97,11 +113,42 @@ export default function App() {
               </a>
             ))}
           </div>
+
+          {/* Mobile menu toggle */}
+          <button
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+            className="sm:hidden text-gray-400 hover:text-[#00ff41] text-lg font-mono cursor-pointer px-1"
+          >
+            {menuOpen ? '✕' : '☰'}
+          </button>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <div
+            ref={menuRef}
+            className="sm:hidden bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#00ff41]/10 px-4 py-3"
+          >
+            <div className="flex flex-col gap-3">
+              {NAV_ITEMS.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="font-mono text-sm text-gray-400 hover:text-[#00ff41] transition-colors"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Main content */}
-      <main className="pb-[240px]">
+      <main className="pb-[60px] sm:pb-[240px]">
         <HeroSection />
         <AboutSection />
         <ProjectsSection />

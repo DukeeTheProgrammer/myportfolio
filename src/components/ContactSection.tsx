@@ -2,7 +2,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-24 px-6 border-t border-[#00ff41]/10"
+      className="py-16 sm:py-24 px-4 sm:px-6 border-t border-[#00ff41]/10"
     >
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="font-mono text-lg text-[#00ff41] mb-2">

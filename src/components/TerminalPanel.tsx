@@ -2,14 +2,25 @@ import { useState, useEffect } from 'react'
 import TerminalShell from './TerminalShell'
 
 const STORAGE_KEY = 'terminal-collapsed'
-const TERMINAL_HEIGHT = 220
+
+function getTerminalHeight() {
+  if (typeof window === 'undefined') return 220
+  return Math.min(280, Math.max(160, window.innerHeight * 0.4))
+}
 
 export default function TerminalPanel() {
   const [collapsed, setCollapsed] = useState(true)
+  const [height, setHeight] = useState(getTerminalHeight)
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'false') setCollapsed(false)
+  }, [])
+
+  useEffect(() => {
+    const onResize = () => setHeight(getTerminalHeight())
+    window.addEventListener('resize', onResize, { passive: true })
+    return () => window.removeEventListener('resize', onResize)
   }, [])
 
   const toggle = () => {
@@ -23,7 +34,7 @@ export default function TerminalPanel() {
   return (
     <div
       className="fixed bottom-0 left-0 right-0 z-50 flex flex-col border-t border-[#00ff41]/20 bg-[#0d1117]/95 backdrop-blur-sm"
-      style={{ height: collapsed ? 32 : TERMINAL_HEIGHT }}
+      style={{ height: collapsed ? 32 : height }}
     >
       {/* Header bar */}
       <div className="flex items-center justify-between px-3 py-0.5 bg-[#161b22] border-b border-[#00ff41]/10 shrink-0 select-none">

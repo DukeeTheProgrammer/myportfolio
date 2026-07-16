@@ -1,6 +1,12 @@
 @import 'tailwindcss';
 @import 'xterm/css/xterm.css';
 
+@custom-variant xs (min-width: 400px);
+
+@theme {
+  --breakpoint-xs: 400px;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -88,4 +94,13 @@ code,
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Hide scrollbar (used for horizontally scrollable ASCII banners) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
