@@ -1,72 +1,76 @@
-import { EXPERIENCES, EDUCATION } from '../data/experience'
+import { motion } from 'framer-motion'
+import { Briefcase, Code2, GraduationCap } from 'lucide-react'
+
+const EXPERIENCE = [
+  {
+    role: 'Freelance Full-Stack Developer',
+    company: 'Self-Employed',
+    period: '2022 – Present',
+    desc: 'Building custom web applications and portfolios for clients, focusing on modern design, performance, and clean code.',
+    icon: Briefcase,
+  },
+  {
+    role: 'Open Source Contributor',
+    company: 'Community Projects',
+    period: '2021 – Present',
+    desc: 'Contributing to open-source repositories and maintaining personal projects on GitHub.',
+    icon: Code2,
+  },
+  {
+    role: 'Self-Taught Developer',
+    company: 'Independent Study',
+    period: '2019 – 2022',
+    desc: 'Developed core programming skills in web development, JavaScript, and software engineering fundamentals.',
+    icon: GraduationCap,
+  },
+]
 
 export default function ExperienceSection() {
   return (
-    <section
-      id="experience"
-      className="py-16 sm:py-24 px-4 sm:px-6 border-t border-[#00ff41]/10"
-    >
-      <div className="max-w-4xl mx-auto">
-        <h2 className="font-mono text-lg text-[#00ff41] mb-2">
-          <span className="text-gray-500">$</span> experience --timeline
-        </h2>
-
-        <div className="mt-8 space-y-0">
-          {EXPERIENCES.map((exp, i) => (
-            <div key={i} className="relative pl-8 pb-8 border-l border-[#00ff41]/20">
-              <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-[#00ff41]" />
-              <div className="border border-[#00ff41]/20 rounded-lg p-5 bg-[#0d1117]/50 ml-4">
-                <div className="flex items-start justify-between flex-wrap gap-2 mb-2">
-                  <div>
-                    <h3 className="font-mono text-sm font-bold text-gray-100">
-                      {exp.role}
-                    </h3>
-                    <span className="font-mono text-xs text-[#3399ff]">
-                      {exp.company}
-                    </span>
-                  </div>
-                  <span className="font-mono text-[10px] text-gray-500 shrink-0">
-                    {exp.startDate} — {exp.endDate}
-                  </span>
-                </div>
-                <p className="text-gray-500 font-mono text-[10px] mb-2">{exp.location}</p>
-                <ul className="space-y-1">
-                  {exp.description.map((desc, j) => (
-                    <li
-                      key={j}
-                      className="text-gray-400 font-mono text-xs flex gap-2"
-                    >
-                      <span className="text-[#00ff41] shrink-0">▸</span>
-                      {desc}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
+    <section id="experience" className="section bg-surface border-y border-border">
+      <div className="container">
+        <div className="section-header">
+          <h2>Experience</h2>
+          <p>A timeline of my journey as a developer.</p>
         </div>
 
-        <h2 className="font-mono text-lg text-[#00ff41] mb-2 mt-16">
-          <span className="text-gray-500">$</span> education
-        </h2>
+        <div className="max-w-3xl mx-auto relative">
+          {/* Timeline line */}
+          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
 
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {EDUCATION.map((edu, i) => (
-            <div
-              key={i}
-              className="border border-[#00ff41]/20 rounded-lg p-5 bg-[#0d1117]/50"
-            >
-              <h3 className="font-mono text-sm font-bold text-gray-100">
-                {edu.degree}
-              </h3>
-              <p className="font-mono text-xs text-gray-400 mt-1">
-                {edu.school}
-              </p>
-              <p className="font-mono text-[10px] text-gray-500 mt-1">
-                {edu.year}
-              </p>
-            </div>
-          ))}
+          {EXPERIENCE.map((item, i) => {
+            const isLast = i === EXPERIENCE.length - 1
+            return (
+              <motion.div
+                key={item.role}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="relative pl-16 pt-8 pb-4"
+              >
+                <div className="absolute left-0 top-2.5 w-3 h-3 rounded-full bg-accent border-2 border-surface shadow-[0_0_0_4px_rgba(99,102,241,0.2)]" />
+                {!isLast && (
+                  <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-border" />
+                )}
+
+                <div className="flex flex-col md:flex-row md:items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent border border-accent/20">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-bold text-primary">
+                      {item.role}
+                    </h4>
+                    <p className="text-accent font-mono text-sm font-bold">{item.company}</p>
+                    <p className="text-muted text-sm mt-1">{item.period}</p>
+                    <p className="text-secondary mt-3 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
