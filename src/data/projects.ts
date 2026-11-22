@@ -2,56 +2,72 @@ export interface Project {
   id: string
   title: string
   description: string
-  liveUrl: string
+  liveUrl: string | null
   githubUrl: string
-  image: string // placeholder hero/thumbnail for the card
-  tags: string[]
-  featured: boolean
+  stack: string[]
+  year: string
 }
 
+// Real repositories from github.com/DukeeTheProgrammer
 export const PROJECTS: Project[] = [
   {
-    id: "ecommerce-platform",
-    title: "Nova Commerce",
+    id: 'quicktopup',
+    title: 'QuickTopUp.ng',
     description:
-      "A full-stack e-commerce platform with Stripe payments, admin dashboard, real-time inventory tracking, and responsive storefront built with React and Node.js.",
-    liveUrl: "https://dukidetheprogrammer.github.io/nova-commerce",
-    githubUrl: "https://github.com/DukieTheProgrammer/nova-commerce",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?w=800&q=80",
-    tags: ["React", "Node.js", "Stripe", "PostgreSQL", "Tailwind"],
-    featured: true,
+      'A full virtual top-up frontend for airtime, data bundles and bill payments, built as a responsive React application.',
+    liveUrl: 'https://quicktopupitcom.vercel.app',
+    githubUrl: 'https://github.com/DukeeTheProgrammer/quicktopup-frontend',
+    stack: ['React', 'JavaScript', 'Vite'],
+    year: '2026',
   },
   {
-    id: "task-manager",
-    title: "FlowTask",
+    id: 'd-short',
+    title: 'dshort',
     description:
-      "Collaborative task management app with drag-and-drop Kanban boards, team workspaces, comments, and email notifications. Optimized for remote teams.",
-    liveUrl: "https://dukidetheprogrammer.github.io/flowtask",
-    githubUrl: "https://github.com/DukieTheProgrammer/flowtask",
-    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80",
-    tags: ["React", "Firebase", "TypeScript", "Tailwind"],
-    featured: true,
+      'A URL shortener that turns long links into short, shareable ones. Built to be simple and fast.',
+    liveUrl: 'https://short-link.pxxl.click',
+    githubUrl: 'https://github.com/DukeeTheProgrammer/d-short',
+    stack: ['HTML', 'JavaScript'],
+    year: '2026',
   },
   {
-    id: "analytics-dashboard",
-    title: "Insight Dashboard",
+    id: 'vertex-cloud',
+    title: 'Vertex Cloud',
     description:
-      "Data visualization dashboard with interactive charts, date-range filters, CSV export, and role-based access. Built for performance with large datasets.",
-    liveUrl: "https://dukidetheprogrammer.github.io/insight-dashboard",
-    githubUrl: "https://github.com/DukieTheProgrammer/insight-dashboard",
-    image: "https://images.unsplash.com/photo-1551288049-b9e78768f8e6?w=800&q=80",
-    tags: ["React", "Chart.js", "TypeScript", "Node.js"],
-    featured: false,
+      'A cloud storage service for static files and images, built for fast delivery and simple integration.',
+    liveUrl: 'https://vertex-cloud.pxxl.click',
+    githubUrl: 'https://github.com/DukeeTheProgrammer/Vertex-Cloud',
+    stack: ['HTML', 'Storage', 'API'],
+    year: '2025',
   },
   {
-    id: "crypto-tracker",
-    title: "CryptoPulse",
+    id: 'vertex-docs',
+    title: 'Vertex Documentation',
     description:
-      "Real-time cryptocurrency price tracker with portfolio management, price alerts, and historical charts. WebSocket-powered live updates.",
-    liveUrl: "https://dukidetheprogrammer.github.io/cryptopulse",
-    githubUrl: "https://github.com/DukieTheProgrammer/cryptopulse",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
-    tags: ["React", "WebSocket", "Chart.js", "Tailwind"],
-    featured: false,
+      'Documentation site explaining Vertex Cloud in plain language, with guides and endpoint references.',
+    liveUrl: 'https://vertexcloud-documentation.pxxl.click',
+    githubUrl: 'https://github.com/DukeeTheProgrammer/vertexcloud-documentation',
+    stack: ['HTML', 'Docs'],
+    year: '2025',
+  },
+  {
+    id: 'portfolio',
+    title: 'dukee.dev',
+    description:
+      'This portfolio — an editorial take on the developer portfolio, built with React, TypeScript and Tailwind.',
+    liveUrl: 'https://myportfolio-rho-six-95.vercel.app',
+    githubUrl: 'https://github.com/DukeeTheProgrammer/myportfolio',
+    stack: ['React', 'TypeScript', 'Tailwind'],
+    year: '2026',
+  },
+  {
+    id: 'envsync',
+    title: 'envsync',
+    description:
+      'A command-line tool that syncs .env files across Git worktrees so environment config never gets lost when switching branches.',
+    liveUrl: null,
+    githubUrl: 'https://github.com/DukeeTheProgrammer/envsync',
+    stack: ['Rust', 'CLI'],
+    year: '2026',
   },
 ]

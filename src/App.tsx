@@ -8,9 +8,9 @@ import ContactSection from './components/ContactSection'
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
       <Navbar />
-      <main className="flex-grow">
+      <main>
         <HeroSection />
         <AboutSection />
         <ProjectsSection />

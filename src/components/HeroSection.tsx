@@ -1,117 +1,110 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Code, Layers, Target, User } from 'lucide-react'
+
+const rise = {
+  hidden: { opacity: 0, y: 18 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.08 * i, duration: 0.7, ease: 'easeOut' as const },
+  }),
+}
 
 export default function HeroSection() {
-  const [imageError, setImageError] = useState(false)
-
   return (
-    <section id="home" className="relative min-h-[90vh] sm:min-h-[100vh] flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
-      {/* Decorative glow blobs */}
-      <div className="absolute top-0 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <section id="top" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
+      {/* single quiet accent: a thin vertical rule far right */}
+      <div className="hidden lg:block absolute right-10 top-0 bottom-0 w-px bg-line" />
 
-      <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        {/* Left: content */}
-        <div className="space-y-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-surface/60 backdrop-blur-sm text-accent text-xs font-mono font-bold uppercase tracking-wider"
+      <div className="container grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        {/* Text */}
+        <div className="lg:col-span-7">
+          <motion.p
+            variants={rise}
+            custom={0}
+            initial="hidden"
+            animate="show"
+            className="font-mono text-[11px] tracking-wide text-violet mb-8"
           >
-            <Layers className="w-3 h-3" /> Available for work
-          </motion.div>
+            Full-stack developer · Available for select work
+          </motion.p>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-tight"
+            variants={rise}
+            custom={1}
+            initial="hidden"
+            animate="show"
+            className="display text-[clamp(3.4rem,8vw,7.4rem)] text-paper"
           >
-            Building digital{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-indigo-400 to-blue-500">
-              experiences
-            </span>
-            that matter.
+            Software that
+            <br />
+            <span className="italic text-lilac">feels considered.</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-lg sm:text-xl text-secondary max-w-lg leading-relaxed"
+            variants={rise}
+            custom={2}
+            initial="hidden"
+            animate="show"
+            className="mt-9 max-w-[46ch] text-[1.05rem] text-muted leading-relaxed"
           >
-            I&apos;m Dukee — a full-stack developer crafting clean, performant,
-            and modern web applications. I turn ideas into production-ready
-            products with care for detail and user experience.
+            I&apos;m Dukee — a developer who builds across the stack, from the
+            interface down to the API. I care about the small things: how it
+            reads, how it responds, and how it holds up in production.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-wrap items-center gap-4"
+            variants={rise}
+            custom={3}
+            initial="hidden"
+            animate="show"
+            className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <a
-              href="#projects"
-              className="btn btn-primary"
-            >
-              View Work <Code className="icon ml-1" />
+            <a href="#work" className="btn">
+              See selected work
             </a>
-            <a
-              href="mailto:hello@dukidetheprogrammer.dev"
-              className="btn btn-outline"
-            >
-              Get in Touch <Target className="icon ml-1" />
+            <a href="#contact" className="btn btn-ghost">
+              Start a conversation
             </a>
           </motion.div>
+
+          <motion.p
+            variants={rise}
+            custom={4}
+            initial="hidden"
+            animate="show"
+            className="mt-14 font-mono text-[10px] tracking-widest text-muted/60"
+          >
+            SCROLL TO EXPLORE
+          </motion.p>
         </div>
 
-        {/* Right: profile photo card */}
+        {/* Portrait */}
         <motion.div
-          initial={{ opacity: 0, x: 40, scale: 0.95 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15, ease: 'easeOut' }}
+          className="lg:col-span-5 relative justify-self-center lg:justify-self-end w-full max-w-[440px]"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-border shadow-lg shadow-accent-glow group">
-            {imageError ? (
-              <div className="w-full h-auto max-w-[420px] mx-auto bg-surface flex flex-col items-center justify-center py-16">
-                <div className="w-32 h-32 rounded-full bg-accent/20 border border-accent/40 mb-4 flex items-center justify-center mx-auto text-4xl font-bold text-accent">
-                  <User className="w-12 h-12" />
-                </div>
-                <p className="text-sm text-muted font-medium">Add your photo</p>
-                <p className="text-xs text-dim mt-1">
-                  Save your picture as public/profile.jpg
+          <div className="absolute -top-4 -right-4 bottom-4 left-4 border border-violet/40" />
+          <div className="relative aspect-[4/5] overflow-hidden border border-line bg-ink">
+            <img
+              src="/profile.jpg"
+              alt="Dukee TheProgrammer"
+              className="w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
+              <div>
+                <p className="display text-2xl text-paper">Dukee</p>
+                <p className="font-mono text-[10px] text-lilac tracking-wide">
+                  dukee.dev
                 </p>
               </div>
-            ) : (
-              <img
-                src="/profile.jpg"
-                alt="Dukee TheProgrammer — professional headshot"
-                className="w-full h-auto block max-w-[420px] mx-auto"
-                loading="lazy"
-                onError={() => setImageError(true)}
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent opacity-80" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <h3 className="text-xl font-bold text-primary">Dukee TheProgrammer</h3>
-              <p className="text-sm text-accent font-mono font-bold">Full-Stack Developer</p>
+              <span className="w-2 h-2 bg-violet rounded-full" />
             </div>
           </div>
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-muted"
-      >
-        <span className="text-xs font-mono uppercase tracking-widest">scroll ↓</span>
-      </motion.div>
     </section>
   )
 }

@@ -1,98 +1,85 @@
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X } from 'lucide-react'
 
-const NAV_ITEMS = [
-  { label: 'Home', href: '#home' },
+const NAV = [
+  { label: 'Work', href: '#work' },
   { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Capabilities', href: '#capabilities' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    if (!menuOpen) return
-    const onClick = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false)
-      }
+    if (!open) return
+    const close = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setOpen(false)
     }
-    document.addEventListener('mousedown', onClick)
-    return () => document.removeEventListener('mousedown', onClick)
-  }, [menuOpen])
+    document.addEventListener('mousedown', close)
+    return () => document.removeEventListener('mousedown', close)
+  }, [open])
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-slate-950/80 backdrop-blur-md border-b border-border'
-          : 'bg-transparent'
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled ? 'bg-ink/90 backdrop-blur-md border-b border-line' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a
-          href="#home"
-          onClick={() => setMenuOpen(false)}
-          className="flex items-center gap-2"
-        >
-          <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-accent-glow">
-            D
-          </div>
-          <span className="font-sans font-bold text-xl tracking-tight">DUKEE.</span>
+      <div className="container h-[72px] flex items-center justify-between">
+        <a href="#top" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+          <span className="w-2.5 h-2.5 bg-violet block" />
+          <span className="font-body font-semibold text-[17px] tracking-tight">dukee.dev</span>
         </a>
 
-        {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-6">
-          {NAV_ITEMS.map((item) => (
+        <div className="hidden md:flex items-center gap-9">
+          {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="text-sm font-medium text-muted transition-colors hover:text-primary"
+              className="font-mono text-[11px] tracking-wide text-muted hover:text-paper transition-colors"
             >
               {item.label}
             </a>
           ))}
+          <a href="mailto:ujiroduke1@gmail.com" className="text-[13px] font-medium border-b border-violet text-paper pb-0.5 hover:text-violet transition-colors">
+            Let&apos;s talk
+          </a>
         </div>
 
-        {/* Right: mobile toggle */}
         <button
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Toggle navigation"
-          className="lg:hidden text-muted hover:text-primary"
+          onClick={() => setOpen((o) => !o)}
+          aria-label="Toggle menu"
+          className="md:hidden font-mono text-[11px] tracking-wide text-muted"
         >
-          {menuOpen ? <X className="icon" /> : <Menu className="icon" />}
+          {open ? 'CLOSE' : 'MENU'}
         </button>
       </div>
 
-      {menuOpen && (
-        <div
-          ref={menuRef}
-          className="lg:hidden bg-surface border-b border-border px-4 pb-4"
-        >
-          <div className="flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => (
+      {open && (
+        <div ref={menuRef} className="md:hidden bg-ink border-t border-line">
+          <div className="container py-6 flex flex-col gap-5">
+            {NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="block px-4 py-3 text-sm font-medium text-secondary rounded-md hover:bg-surface-hover hover:text-accent transition-colors"
+                onClick={() => setOpen(false)}
+                className="font-display text-3xl text-paper hover:text-violet transition-colors"
               >
                 {item.label}
               </a>
             ))}
+            <a href="mailto:ujiroduke1@gmail.com" className="font-mono text-xs text-violet">
+              ujiroduke1@gmail.com
+            </a>
           </div>
         </div>
       )}
