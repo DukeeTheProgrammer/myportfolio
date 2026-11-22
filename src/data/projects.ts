@@ -15,7 +15,7 @@ export const PROJECTS: Project[] = [
     title: 'QuickTopUp.ng',
     description:
       'A full virtual top-up frontend for airtime, data bundles and bill payments, built as a responsive React application.',
-    liveUrl: 'https://quicktopupitcom.vercel.app',
+    liveUrl: 'https://quicktopup.it.com',
     githubUrl: 'https://github.com/DukeeTheProgrammer/quicktopup-frontend',
     stack: ['React', 'JavaScript', 'Vite'],
     year: '2026',
